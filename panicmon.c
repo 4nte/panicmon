@@ -88,7 +88,7 @@ static int panicmon(struct notifier_block *nb, unsigned long l, void *p) {
 
     //OH NO...\n == 25 c
     //1024 - \0 - 25 = 998
-    sprintf(message,"OH NO WE ARE PANICING - %.998s\n", buf);
+    sprintf(message,"Kernel panic just happened!");
     len = strlen(message);
 
     // in case params have been updated    
