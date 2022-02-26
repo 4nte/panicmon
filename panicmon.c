@@ -104,6 +104,7 @@ static struct notifier_block onpanic = {
 };
 
 int init_module(void) {
+    int len = 0;
     printk(KERN_INFO MODULE_NAME ": Loaded.\n");
 
     //validation and init
