@@ -10,6 +10,7 @@
 #include <linux/proc_fs.h>
 #include <linux/inet.h>
 #include <linux/stat.h>
+#include <linux/delay.h>
 
 MODULE_AUTHOR("steve@zentific.com");
 MODULE_DESCRIPTION("A last-gasp panic notifier");
@@ -94,6 +95,7 @@ static int panicmon(struct notifier_block *nb, unsigned long l, void *p) {
     update_panicmon_net();
 
     netpoll_send_udp(np,message,len);
+    ssleep(2);
 
     return NOTIFY_DONE;
 }
