@@ -100,7 +100,7 @@ static int panicmon(struct notifier_block *nb, unsigned long l, void *p) {
     return NOTIFY_OK;
 }
 
-static struct notifier_block onpanic = {
+static struct blocking_notifier_head onpanic = {
     .notifier_call = panicmon
 
 };
