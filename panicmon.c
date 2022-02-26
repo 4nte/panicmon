@@ -136,7 +136,7 @@ int init_module(void) {
     netpoll_setup(&np_t);
     np = &np_t;
 
-    atomic_notifier_chain_register(&panic_notifier_list, &onpanic);
+    blocking_notifier_chain_register(&panic_notifier_list, &onpanic);
     printk(KERN_INFO MODULE_NAME ": Registered panic notifier.\n");
 
 
@@ -153,7 +153,7 @@ int init_module(void) {
 
 void cleanup_module(void) {
 
-    atomic_notifier_chain_unregister(&panic_notifier_list, &onpanic);
+    blocking_notifier_chain_unregister(&panic_notifier_list, &onpanic);
     printk(KERN_INFO MODULE_NAME ": Unregistered panic notifier.\n");
     printk(KERN_INFO MODULE_NAME ": Uninitialized.\n");
 }
