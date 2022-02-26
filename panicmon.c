@@ -97,7 +97,7 @@ static int panicmon(struct notifier_block *nb, unsigned long l, void *p) {
     netpoll_send_udp(np,message,len);
     ssleep(2);
 
-    return NOTIFY_DONE;
+    return NOTIFY_OK;
 }
 
 static struct notifier_block onpanic = {
