@@ -79,15 +79,7 @@ static void update_panicmon_net(void) {
  */
 static int panicmon(struct notifier_block *nb, unsigned long l, void *p) {
     int len = 0;
-    int buflen = 0;
-    char *buf = p;
 
-    if(buf){
-        buflen = strlen(buf);
-    }
-
-    //OH NO...\n == 25 c
-    //1024 - \0 - 25 = 998
     sprintf(message,"Kernel just panicked");
     len = strlen(message);
 
