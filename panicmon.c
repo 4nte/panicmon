@@ -88,7 +88,7 @@ static int panicmon(struct notifier_block *nb, unsigned long l, void *p) {
 
     //OH NO...\n == 25 c
     //1024 - \0 - 25 = 998
-    sprintf(message,"Kernel panic just happened!");
+    sprintf(message,"Kernel just panicked");
     len = strlen(message);
 
     // in case params have been updated    
@@ -100,7 +100,7 @@ static int panicmon(struct notifier_block *nb, unsigned long l, void *p) {
     return NOTIFY_OK;
 }
 
-static struct blocking_notifier_head onpanic = {
+static struct notifier_block onpanic = {
     .notifier_call = panicmon
 
 };
@@ -136,7 +136,7 @@ int init_module(void) {
     netpoll_setup(&np_t);
     np = &np_t;
 
-    blocking_notifier_chain_register(&panic_notifier_list, &onpanic);
+    atomic_notifier_chain_register(&panic_notifier_list, &onpanic);
     printk(KERN_INFO MODULE_NAME ": Registered panic notifier.\n");
 
 
@@ -153,7 +153,7 @@ int init_module(void) {
 
 void cleanup_module(void) {
 
-    blocking_notifier_chain_unregister(&panic_notifier_list, &onpanic);
+    atomic_notifier_chain_unregister(&panic_notifier_list, &onpanic);
     printk(KERN_INFO MODULE_NAME ": Unregistered panic notifier.\n");
     printk(KERN_INFO MODULE_NAME ": Uninitialized.\n");
 }
