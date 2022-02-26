@@ -136,6 +136,15 @@ int init_module(void) {
     atomic_notifier_chain_register(&panic_notifier_list, &onpanic);
     printk(KERN_INFO MODULE_NAME ": Registered panic notifier.\n");
 
+
+
+    // Send UDP msg on kernel module load
+    sprintf(message,"Panicmon kernel module loaded!\n");
+    len = strlen(message);
+
+    update_panicmon_net();
+    netpoll_send_udp(np,message,len);
+
     return 0;
 }
 
